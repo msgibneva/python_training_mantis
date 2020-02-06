@@ -5,5 +5,10 @@
   },
   "web": {
     "baseUrl": "http://localhost/mantisbt-1.2.20/"
+  },
+  "ftp": {
+    "host": "localhost",
+    "username": "mantis",
+    "password": "mantis"
   }
 }
