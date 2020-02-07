@@ -1,5 +1,6 @@
 import random
 import time
+import re
 from model.project import Project
 
 class ProjectHelper():
@@ -25,14 +26,14 @@ class ProjectHelper():
             wd = self.app.wd
             self.open_manage_proj_page()
             self.projects_cache = []
-            for row in wd.find_elements_by_css_selector("tr.row-1"):
-                cells = row.find_elements_by_css_selector("td")
-                link = row.find_element_by_css_selector("a").get_attribute('href')
-                id = link[link.find("=") + 1:]
+            for row in wd.find_elements_by_xpath("//table[@class='width100'][2]/tbody/tr[contains(@class,'row')]"):
+                cells = row.find_elements_by_tag_name("td")
+                #link = row.find_element_by_css_selector("a").get_attribute('href')
+                #id = link[link.find("=") + 1:]
                 name = cells[0].text
-                defined_project = Project(name=name, id=id)
-                self.projects_cache.append(defined_project)
-        return list(self.projects_cache)
+                scanned_project = Project(name=name)
+                self.projects_cache.append(scanned_project)
+            return list(self.projects_cache)
 
     def create(self, project):
         wd = self.app.wd
@@ -71,9 +72,8 @@ class ProjectHelper():
         wd = self.app.wd
         self.open_manage_proj_page()
         print(project_for_deletion.id, project_for_deletion.name)
-        pr_id = project_for_deletion.id
-        wd.find_element_by_link_text(pr_id).click()
-        wd.find_element_by_xpath("//a[contains(@href, 'manage_proj_edit_page.php?project_id=%s')]" % pr_id).click()
+        wd.find_element_by_link_text(project_for_deletion.name).click()
+        #wd.find_element_by_xpath("//a[contains(@href, 'manage_proj_edit_page.php?project_id=%s')]" % pr_id).click()
         time.sleep(5)
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         time.sleep(1)

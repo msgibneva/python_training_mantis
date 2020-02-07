@@ -28,7 +28,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        if not (wd.current_url.endswith("/mantisbt-1.2.20/")):
+        if not (wd.current_url.endswith("/mantisbt-1.2.20/login_page.php")):
             wd.get(self.base_url)
 
     def destroy(self):
