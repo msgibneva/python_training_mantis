@@ -77,3 +77,5 @@ class ProjectHelper():
         time.sleep(1)
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         self.projects_cache = None
+
+
