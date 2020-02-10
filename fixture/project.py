@@ -1,6 +1,4 @@
-import random
 import time
-import re
 from model.project import Project
 
 class ProjectHelper():
@@ -78,4 +76,11 @@ class ProjectHelper():
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         self.projects_cache = None
 
-
+    def get_difference(self, first_array, sec_array):
+        match = False
+        for key, value in enumerate(first_array):
+            if (value.name == sec_array[key].name or None) and (value.id == sec_array[key].id or None):
+                match = True
+            else:
+                break
+        return match
